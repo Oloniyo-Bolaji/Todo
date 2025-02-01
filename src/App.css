@@ -1,0 +1,135 @@
+.main {
+background: #f1f1f0;
+}
+.home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.home h1{
+  margin: 10px;
+  font-weight: bold;
+  font-size: 60px;
+}
+.home button{
+  background: red;
+  border:none;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+}
+.home:hover{
+  color: green;
+  background: white;
+}
+.todo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.todo h1{
+  font-size: 60px;
+  margin: 10px;
+  font-weight: bold;
+}
+.input-div{
+  display: flex;
+  gap:5px;
+}
+  .input-div button{
+    background: green;
+    color: white;
+    font-weight: bold; 
+    padding: 10px;
+    border:none;
+  } 
+  .input-div button:hover{
+    background: white;
+    color: green;
+    border: 1px solid green;
+  }
+  .task-input{
+    width: 350px;
+    padding:5px;
+    box-sizing: border-box;
+    }
+    .date-input{
+     padding:5px; 
+    }
+  .tasks-container{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: 20px;
+    gap: 10px;
+  }
+  .task{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: white;
+    align-items: center;
+    padding:10px 20px;
+    border-left: 2px solid grey;
+  }
+  .taskName{
+    text-transform: capitalize;
+    font-weight:bold;
+    font-size: 16px;
+  }
+  .done{
+    text-decoration: line-through;
+    color: grey;
+    font-style: italic;
+  }
+  .no{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  }
+.time{
+  display: flex;
+  align-items: center; 
+  gap:5px;
+  font-size:13px;
+}
+.btns{
+  display: flex;
+  align-items: center; 
+  gap:5px;
+}
+.done-btn{
+/*  padding:5px;*/
+  color:green;
+  border:none;
+  background: none;
+}
+.delete-btn{
+ /* padding:5px;*/
+  color:red;
+  border:none;
+  background: none;
+}
+@media screen and (max-width: 480px){
+    .task-input{
+    width: 120px;
+    }
+    .tasks-container{
+    width: 300px;
+  }
+  .task{
+    padding:10px 5px;
+  }
+    .taskName{
+    font-size: 13px;
+  }
+  .time{
+  gap:5px;
+  font-size:10px;
+}
+}
