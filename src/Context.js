@@ -2,13 +2,10 @@ import React, {useState, useEffect, createContext} from 'react';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, addDoc, query, onSnapshot, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
-
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC7cmMd-eIOQAedFGzHqqi6ux4IKyKFVQY",
   apiKey: "AIzaSyC7cmMd-eIOQAedFGzHqqi6ux4IKyKFVQY",
   authDomain: "to-do-b2aeb.firebaseapp.com",
   projectId: "to-do-b2aeb",
@@ -36,7 +33,6 @@ const TodoProvider = ({children}) => {
  const signInWithGoogle = async () => {
    try{
      const result = await signInWithPopup(auth, googleProvider)
-     const user = result.user
      setIsLogin(true)
    }catch(err){
      console.log(err)
@@ -102,29 +98,33 @@ const finishTask = async (taskId, taskName, taskTime) => {
 };
 
  useEffect(() => {
-    const userId = auth.currentUser?.uid;
-    if (!userId) return; // Prevent running if userId is not available
+  let unsubscribeTasks;
 
-    const tasksRef = collection(db, `users/${userId}/tasks`);
+  const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      setTasks([]); // Clear tasks when user logs out
+      return;
+    }
+
+    const userId = user.uid;
+    const tasksRef = collection(db `users/${userId}/tasks`); // Ensure correct Firestore path
     const q = query(tasksRef);
 
-    // Set up a real-time listener
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const arrayOfTask = querySnapshot.docs.map((doc) => {
-        console.log(doc.data()); // Debugging
-    
-        return {
-          id: doc.id, // Include document ID
-          ...doc.data(), // Spread document fields
-        };
-      });
+    unsubscribeTasks = onSnapshot(q, (querySnapshot) => {
+      const arrayOfTask = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
       setTasks(arrayOfTask);
     });
+  });
 
-    // Cleanup the listener when the component unmounts
-    return () => unsubscribe();
-  }, [auth.currentUser?.uid]); // Add dependency
+  return () => {
+    if (unsubscribeTasks) unsubscribeTasks();
+    unsubscribeAuth();
+  };
+}, []); // No need for auth.currentUser as a dependency
 
 
  const getDate = (userdate) => {
