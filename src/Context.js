@@ -135,7 +135,6 @@ const finishTask = async (taskId, taskName, taskTime) => {
    const month = monthsOfYear[userDate.getMonth()]
    const date = userDate.getDate()
    const year = userDate.getFullYear()
-   
    return `${day} ${month} ${date}, ${year}`
  }
  

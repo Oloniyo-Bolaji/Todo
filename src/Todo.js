@@ -7,7 +7,7 @@ import {TiTick} from 'react-icons/ti'
 
 
 const Todo = () => {
-  
+  //Receiving states from context js
   const {signInWithGoogle, isLogin, task, setTask, addTask, finishDate, setFinishDate, tasks, setTasks, deleteTask, getDate, finishTask} = useContext(TodoContext)
   
   const handleSignin = async () => {
@@ -17,9 +17,7 @@ const Todo = () => {
   const handleAddTask = async () => {
     await addTask()
   }
-
-
-
+  
   return(
     <div className='main'>
      {isLogin ?

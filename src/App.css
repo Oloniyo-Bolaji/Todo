@@ -21,7 +21,7 @@ background: #f1f1f0;
   padding: 10px;
   margin: 10px;
 }
-.home:hover{
+.home button:hover{
   color: green;
   background: white;
 }
