@@ -107,7 +107,7 @@ const finishTask = async (taskId, taskName, taskTime) => {
     }
 
     const userId = user.uid;
-    const tasksRef = collection(db `users/${userId}/tasks`); // Ensure correct Firestore path
+    const tasksRef = collection(db, `users/${userId}/tasks`); // Ensure correct Firestore path
     const q = query(tasksRef);
 
     unsubscribeTasks = onSnapshot(q, (querySnapshot) => {
